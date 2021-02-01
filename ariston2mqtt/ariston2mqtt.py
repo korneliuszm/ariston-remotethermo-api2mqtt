@@ -83,7 +83,7 @@ mqtt_broker = connection.get('MqttBroker', 'localhost')
 mqtt_topic_prefix = connection.get('MqttTopicPrefix', 'ariston/')
 mqtt_request_topic = connection.get('MqttRequestTopic', 'request')
 mqtt_qos = connection.get('MqttQos', 0)
-mqtt_retain = connection.get('MqttRetain', False)
+mqtt_retain = connection.get('MqttRetain', 'False')
 
 
 
