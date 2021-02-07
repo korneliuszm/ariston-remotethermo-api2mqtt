@@ -7,9 +7,6 @@ Feedback will be much appreciated.
 
 ## installation
 
-Install package:
-```pip install ariston-remotethermo-api2mqtt```
-
 The following packages are required for correct operation:
 - https://github.com/chomupashchuk/ariston-remotethermo-api
 - https://github.com/eclipse/paho.mqtt.python
@@ -29,4 +26,5 @@ Current version has been tested on the following environment:
 - Raspberry Pi 4B
 - Raspbian GNU/Linux 10 (buster)
 - Python 3.7.3
+- eclipse-mosquitto 1.6.12 (docker version)
 - Ariston GENUS ONE SYSTEM 24
