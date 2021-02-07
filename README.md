@@ -6,7 +6,10 @@ Feel free to test it :)
 Feedback will be much appreciated.
 
 ## installation
-Program has been tested in Python v 3.7.3
+
+Install package:
+```pip install ariston-remotethermo-api2mqtt```
+
 The following packages are required for correct operation:
 - https://github.com/chomupashchuk/ariston-remotethermo-api
 - https://github.com/eclipse/paho.mqtt.python
@@ -20,3 +23,10 @@ File ariston2mqtt.conf contains cofiguration splitted into following sections:
   - ```JSON``` - one JSON topic with all sensor statuses
 - ```[ARISTON]``` with connectivity details to https://www.ariston-net.remotethermo.com
 - ```[SENSORS]``` with list of sensors supportet by API (please keep in mind that using sensors which are not supported by your Ariston equipment can case issues - please read https://github.com/chomupashchuk/ariston-remotethermo-api)
+
+## testing environment
+Current version has been tested on the following environment:
+- Raspberry Pi 4B
+- Raspbian GNU/Linux 10 (buster)
+- Python 3.7.3
+- Ariston GENUS ONE SYSTEM 24
