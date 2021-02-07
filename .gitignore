@@ -1,0 +1,8 @@
+ariston2mqtt/test.py
+ariston2mqtt/a2m.conf
+ariston2mqtt/sample.json
+.vscode/launch.json
+ariston2mqtt/exlcude from git/ariston2mqtt.py
+ariston2mqtt/exlcude from git/log.txt
+ariston2mqtt/exlcude from git/ariston2mqtt_20210207.py
+ariston2mqtt/__pycache__/supported_sensors.cpython-37.pyc
