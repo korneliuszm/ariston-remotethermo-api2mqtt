@@ -1,0 +1,300 @@
+label: Ariston heating
+thingTypeUID: mqtt:topic
+configuration: {}
+bridgeUID: mqtt:broker:mosquitto
+location: Boiler
+channels: 
+  - id: ariston_ch_water_temperature
+    channelTypeUID: mqtt:number
+    label: CH Water Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/ch_water_temperature
+  - id: ariston_dhw_set_temperature
+    channelTypeUID: mqtt:number
+    label: DHW Set Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_set_temperature
+  - id: ariston_flame
+    channelTypeUID: mqtt:string
+    label: Flame
+    description: null
+    configuration:
+      stateTopic: ariston/flame
+  - id: ariston_ch_economy_temperature
+    channelTypeUID: mqtt:number
+    label: CH Economy Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/ch_economy_temperature
+  - id: ariston_errors_count
+    channelTypeUID: mqtt:number
+    label: Errors Count
+    description: null
+    configuration:
+      stateTopic: ariston/errors_count
+  - id: ariston_account_ch_electricity
+    channelTypeUID: mqtt:number
+    label: Account CH Electricity
+    description: null
+    configuration:
+      stateTopic: ariston/account_ch_electricity
+  - id: ariston_account_dhw_gas
+    channelTypeUID: mqtt:number
+    label: Account DHW Gas
+    description: null
+    configuration:
+      stateTopic: ariston/account_dhw_gas
+  - id: ariston_ch_set_temperature
+    channelTypeUID: mqtt:number
+    label: CH Set Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/ch_set_temperature
+  - id: ariston_gas_type
+    channelTypeUID: mqtt:string
+    label: Gas Type
+    description: null
+    configuration:
+      stateTopic: ariston/gas_type
+  - id: ariston_electricity_cost
+    channelTypeUID: mqtt:number
+    label: Electricity Cost
+    description: null
+    configuration:
+      stateTopic: ariston/electricity_cost
+  - id: ariston_ch_pilot
+    channelTypeUID: mqtt:string
+    label: CH Pilot
+    description: null
+    configuration:
+      stateTopic: ariston/ch_pilot
+  - id: ariston_heating_last_30d
+    channelTypeUID: mqtt:number
+    label: Heating Last 30D
+    description: null
+    configuration:
+      stateTopic: ariston/heating_last_30d
+  - id: ariston_heating_last_365d
+    channelTypeUID: mqtt:number
+    label: Heating Last 365D
+    description: null
+    configuration:
+      stateTopic: ariston/heating_last_365d
+  - id: ariston_dhw_storage_temperature
+    channelTypeUID: mqtt:number
+    label: DHW Storage Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_storage_temperature
+  - id: ariston_water_last_24h
+    channelTypeUID: mqtt:number
+    label: Water Last 24H
+    description: null
+    configuration:
+      stateTopic: ariston/water_last_24h
+  - id: ariston_dhw_thermal_cleanse_function
+    channelTypeUID: mqtt:string
+    label: DHW Thermal Cleanse Function
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_thermal_cleanse_function
+  - id: ariston_mode
+    channelTypeUID: mqtt:string
+    label: Mode
+    description: null
+    configuration:
+      stateTopic: ariston/mode
+  - id: ariston_heating_last_7d
+    channelTypeUID: mqtt:number
+    label: Heating Last 7D
+    description: null
+    configuration:
+      stateTopic: ariston/heating_last_7d
+  - id: ariston_ch_comfort_temperature
+    channelTypeUID: mqtt:number
+    label: CH Comfort Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/ch_comfort_temperature
+  - id: ariston_dhw_flame
+    channelTypeUID: mqtt:string
+    label: DHW Flame
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_flame
+  - id: ariston_ch_flame
+    channelTypeUID: mqtt:string
+    label: CH Flame
+    description: null
+    configuration:
+      stateTopic: ariston/ch_flame
+  - id: ariston_update
+    channelTypeUID: mqtt:string
+    label: Update
+    description: null
+    configuration:
+      stateTopic: ariston/update
+  - id: ariston_ch_detected_temperature
+    channelTypeUID: mqtt:number
+    label: CH Detected Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/ch_detected_temperature
+  - id: ariston_ch_antifreeze_temperature
+    channelTypeUID: mqtt:number
+    label: CH Antifreeze Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/ch_antifreeze_temperature
+  - id: ariston_account_dhw_electricity
+    channelTypeUID: mqtt:number
+    label: Account DHW Electricity
+    description: null
+    configuration:
+      stateTopic: ariston/account_dhw_electricity
+  - id: ariston_dhw_comfort_function
+    channelTypeUID: mqtt:string
+    label: DHW Comfort Function
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_comfort_function
+  - id: ariston_ch_auto_function
+    channelTypeUID: mqtt:string
+    label: CH Auto Function
+    description: null
+    configuration:
+      stateTopic: ariston/ch_auto_function
+  - id: ariston_water_last_7d
+    channelTypeUID: mqtt:number
+    label: Water Last 7D
+    description: null
+    configuration:
+      stateTopic: ariston/water_last_7d
+  - id: ariston_water_last_30d
+    channelTypeUID: mqtt:number
+    label: Water Last 30D
+    description: null
+    configuration:
+      stateTopic: ariston/water_last_30d
+  - id: ariston_dhw_thermal_cleanse_cycle
+    channelTypeUID: mqtt:number
+    label: DHW Thermal Cleanse Cycle
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_thermal_cleanse_cycle
+  - id: ariston_errors
+    channelTypeUID: mqtt:string
+    label: Errors
+    description: null
+    configuration:
+      stateTopic: ariston/errors
+  - id: ariston_dhw_economy_temperature
+    channelTypeUID: mqtt:number
+    label: DHW Economy Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_economy_temperature
+  - id: ariston_holiday_mode
+    channelTypeUID: mqtt:string
+    label: Holiday Mode
+    description: null
+    configuration:
+      stateTopic: ariston/holiday_mode
+  - id: ariston_internet_time
+    channelTypeUID: mqtt:string
+    label: Internet Time
+    description: null
+    configuration:
+      stateTopic: ariston/internet_time
+  - id: ariston_gas_cost
+    channelTypeUID: mqtt:number
+    label: Gas Cost
+    description: null
+    configuration:
+      stateTopic: ariston/gas_cost
+  - id: ariston_units
+    channelTypeUID: mqtt:string
+    label: Units
+    description: null
+    configuration:
+      stateTopic: ariston/units
+  - id: ariston_dhw_comfort_temperature
+    channelTypeUID: mqtt:number
+    label: DHW Comfort Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_comfort_temperature
+  - id: ariston_ch_mode
+    channelTypeUID: mqtt:string
+    label: CH Mode
+    description: null
+    configuration:
+      stateTopic: ariston/ch_mode
+  - id: ariston_signal_strength
+    channelTypeUID: mqtt:number
+    label: Signal Strength
+    description: null
+    configuration:
+      stateTopic: ariston/signal_strength
+  - id: ariston_water_last_365d
+    channelTypeUID: mqtt:number
+    label: Water Last 365D
+    description: null
+    configuration:
+      stateTopic: ariston/water_last_365d
+  - id: ariston_heating_last_24h
+    channelTypeUID: mqtt:number
+    label: Heating Last 24H
+    description: null
+    configuration:
+      stateTopic: ariston/heating_last_24h
+  - id: ariston_online_version
+    channelTypeUID: mqtt:string
+    label: Online Version
+    description: null
+    configuration:
+      stateTopic: ariston/online_version
+  - id: ariston_ch_program
+    channelTypeUID: mqtt:number
+    label: CH Program
+    description: null
+    configuration:
+      stateTopic: ariston/ch_program
+  - id: ariston_heat_pump
+    channelTypeUID: mqtt:string
+    label: Heat Pump
+    description: null
+    configuration:
+      stateTopic: ariston/heat_pump
+  - id: ariston_account_ch_gas
+    channelTypeUID: mqtt:number
+    label: Account CH Gas
+    description: null
+    configuration:
+      stateTopic: ariston/account_ch_gas
+  - id: ariston_dhw_mode
+    channelTypeUID: mqtt:string
+    label: DHW Mode
+    description: null
+    configuration:
+      stateTopic: ariston/dhw_mode
+  - id: ariston_outside_temperature
+    channelTypeUID: mqtt:number
+    label: Outside Temperature
+    description: null
+    configuration:
+      stateTopic: ariston/outside_temperature
+  - id: ariston_internet_weather
+    channelTypeUID: mqtt:string
+    label: Internet Weather
+    description: null
+    configuration:
+      stateTopic: ariston/internet_weather
+  - id: ariston_last_update 
+    channelTypeUID: mqtt:datetime
+    label: Last update 
+    description: null 
+    configuration:
+      stateTopic: ariston/last_update

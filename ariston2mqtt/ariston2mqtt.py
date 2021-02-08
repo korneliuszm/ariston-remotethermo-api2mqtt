@@ -1,4 +1,4 @@
-import os
+# import os
 import re
 import sys
 import time
@@ -6,7 +6,7 @@ import logging
 import configparser
 import json
 import paho.mqtt.client as paho
-import paho.mqtt.publish as publish
+# import paho.mqtt.publish as publish
 from aristonremotethermo.ariston import AristonHandler
 from datetime import datetime
 
@@ -42,70 +42,70 @@ _SENSOR_SETTINGS_ALLOWED = [
 ]
 
 _SUPPORTED_SENSORS = {
-    'ch_flame', 
-    'ch_comfort_temperature', 
-    'signal_strength', 
-    'cooling_last_30d_list', 
-    'heating_last_365d', 
-    'heating_last_24h_list', 
-    'cooling_last_30d', 
-    'ch_mode', 
-    'dhw_set_temperature', 
-    'ch_water_temperature', 
-    'units', 
-    'cooling_last_7d_list', 
-    'dhw_storage_temperature', 
-    'internet_weather', 
-    'cooling_last_24h', 
-    'dhw_thermal_cleanse_cycle', 
-    'heating_last_30d', 
-    'heat_pump', 
-    'ch_antifreeze_temperature', 
-    'account_dhw_gas', 
-    'ch_auto_function', 
-    'water_last_30d', 
-    'heating_last_24h', 
-    'cooling_last_24h_list', 
-    'holiday_mode', 
-    'outside_temperature', 
-    'water_last_365d', 
-    'errors_count', 
-    'dhw_economy_temperature', 
-    'gas_type', 
+    'ch_flame',
+    'ch_comfort_temperature',
+    'signal_strength',
+    'cooling_last_30d_list',
+    'heating_last_365d',
+    'heating_last_24h_list',
+    'cooling_last_30d',
+    'ch_mode',
+    'dhw_set_temperature',
+    'ch_water_temperature',
+    'units',
+    'cooling_last_7d_list',
+    'dhw_storage_temperature',
+    'internet_weather',
+    'cooling_last_24h',
+    'dhw_thermal_cleanse_cycle',
+    'heating_last_30d',
+    'heat_pump',
+    'ch_antifreeze_temperature',
+    'account_dhw_gas',
+    'ch_auto_function',
+    'water_last_30d',
+    'heating_last_24h',
+    'cooling_last_24h_list',
+    'holiday_mode',
+    'outside_temperature',
+    'water_last_365d',
+    'errors_count',
+    'dhw_economy_temperature',
+    'gas_type',
     'dhw_comfort_function',
-    'errors', 
-    'online_version', 
-    'ch_program', 
-    'water_last_7d', 
-    'dhw_thermal_cleanse_function', 
-    'dhw_mode', 
+    'errors',
+    'online_version',
+    'ch_program',
+    'water_last_7d',
+    'dhw_thermal_cleanse_function',
+    'dhw_mode',
     'water_last_24h',
-    'mode', 
-    'update', 
-    'water_last_7d_list', 
-    'internet_time', 
-    'ch_pilot', 
-    'heating_last_7d_list', 
-    'cooling_last_7d', 
-    'ch_set_temperature', 
-    'heating_last_7d', 
-    'water_last_365d_list', 
-    'account_dhw_electricity', 
-    'flame', 
-    'water_last_30d_list', 
-    'water_last_24h_list', 
-    'account_ch_gas', 
-    'account_ch_electricity', 
-    'ch_detected_temperature', 
-    'dhw_flame', 
-    'dhw_program', 
-    'cooling_last_365d', 
-    'cooling_last_365d_list', 
-    'dhw_comfort_temperature', 
-    'heating_last_365d_list', 
-    'ch_economy_temperature', 
-    'electricity_cost', 
-    'gas_cost', 
+    'mode',
+    'update',
+    'water_last_7d_list',
+    'internet_time',
+    'ch_pilot',
+    'heating_last_7d_list',
+    'cooling_last_7d',
+    'ch_set_temperature',
+    'heating_last_7d',
+    'water_last_365d_list',
+    'account_dhw_electricity',
+    'flame',
+    'water_last_30d_list',
+    'water_last_24h_list',
+    'account_ch_gas',
+    'account_ch_electricity',
+    'ch_detected_temperature',
+    'dhw_flame',
+    'dhw_program',
+    'cooling_last_365d',
+    'cooling_last_365d_list',
+    'dhw_comfort_temperature',
+    'heating_last_365d_list',
+    'ch_economy_temperature',
+    'electricity_cost',
+    'gas_cost',
     'heating_last_30d_list'
 }
 
@@ -118,7 +118,7 @@ _OUTPUT_TYPES = [
 
 _VALUE = "value"
 _UNITS = "units"
-_REGEX = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
+_REGEX = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
 
 
 def check_user_name(email):
@@ -147,7 +147,7 @@ def create_payload(message, output_type):
     if output_type == 'topic':
         for key in sensors:
             payload_to_update = {}
-            if message[key][_VALUE] != None:
+            if message[key][_VALUE] is not None:
                 if type(message[key][_VALUE]) is dict:
                     message2 = message[key][_VALUE]
                     for key2, value2 in message2.items():
@@ -158,7 +158,7 @@ def create_payload(message, output_type):
                 else:
                     key = str(key).strip()
                     value = str(message[key][_VALUE]).strip()
-                    if message[key][_UNITS] == None or not payload_send_units:
+                    if message[key][_UNITS] is None or not payload_send_units:
                         units = ""
                     else:
                         units = str(message[key][_UNITS]).strip()
@@ -166,15 +166,20 @@ def create_payload(message, output_type):
                     item_payload = value + units
                     payload_to_update = {(item_topic, item_payload)}
                     msg_payload.update(payload_to_update)
+        item_topic = mqtt_topic_prefix + 'last_update'  # timestamp
+        item_payload = datetime.now().isoformat()
+        payload_to_update = {(item_topic, item_payload)}
+        msg_payload.update(payload_to_update)
         return msg_payload
     elif output_type == 'JSON':
         output_json = {}
         for key in sensors:
-            if message[key][_VALUE] != None:
-                if message[key][_UNITS] == None or not payload_send_units:
+            if message[key][_VALUE] is not None:
+                if message[key][_UNITS] is None or not payload_send_units:
                     output_json[key] = message[key][_VALUE]
                 else:
                     output_json[key] = message[key]
+        output_json['last_update'] = datetime.now().isoformat()  # timestamp
         return json.dumps(output_json)
 
 
@@ -211,7 +216,7 @@ payload = _CONFIG[_CONFIG_PAYLOAD]
 ariston_details = _CONFIG[_CONFIG_ARISTON]
 sensors = _CONFIG[_CONFIG_SENSORS]
 
-#### AristonAPI settings ####
+# AristonAPI settings #
 ariston_user_name = ariston_details.get('AristonUserName')
 ariston_password = ariston_details.get('AristonPassword')
 ariston_store_file = ariston_details.getboolean('AristonStoreFile', False)
@@ -228,7 +233,7 @@ if len(ariston_password) == 0:
 if ariston_logging_level not in _LOGGING_LEVELS:
     raise Exception("Invalid logging_level")
 
-### MQTT transfer ####
+# MQTT transfer #
 mqtt_broker = connection.get('MqttBroker', 'localhost')
 mqtt_port = connection.get('MqttPort', '1883')
 mqtt_clientid = connection.get('MqttClientid', 'ariston-1')
@@ -238,14 +243,14 @@ mqtt_request_topic = connection.get('MqttRequestTopic', 'request')
 mqtt_qos = connection.get('MqttQos', 0)
 mqtt_retain = connection.getboolean('MqttRetain', 'False')
 
-#### Payload settings ####
+# Payload settings ####
 payload_output_type = payload.get('PayloadOutputType', 'JSON')
 payload_send_units = payload.getboolean('PayloadSendUnits', True)
 
 if payload_output_type not in _OUTPUT_TYPES:
     raise Exception("Invalid output type")
 
-#### Logging settings ####
+# Logging settings #
 _logging_level = logging.getLevelName(ariston_logging_level)
 _LOGGER.setLevel(_logging_level)
 _console_handler = logging.StreamHandler()
@@ -261,7 +266,7 @@ supported_sensors = _SUPPORTED_SENSORS
 sensors = read_sensors(sensors)
 
 
-#### Initiate Ariston API ####
+# Initiate Ariston API #
 ApiInstance = AristonHandler(
     username=ariston_user_name,
     password=ariston_password,
@@ -274,7 +279,7 @@ ApiInstance = AristonHandler(
 
 ApiInstance.start()
 
-#### Initialise MQTT ####
+# Initialise MQTT #
 mqtt_request_topic = mqtt_topic_prefix + mqtt_request_topic + '/'
 mqttc = paho.Client(mqtt_clientid, mqtt_clean_session)
 

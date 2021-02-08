@@ -1,2 +1,2 @@
-.vscode/launch.json
+.vscode/*
 ariston2mqtt/__pycache__/supported_sensors.cpython-37.pyc
