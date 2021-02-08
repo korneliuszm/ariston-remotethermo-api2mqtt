@@ -8,7 +8,7 @@ import json
 import paho.mqtt.client as paho
 # import paho.mqtt.publish as publish
 from aristonremotethermo.ariston import AristonHandler
-# from datetime import datetime
+from datetime import datetime
 
 _CONFIG_FILE = "ariston2mqtt.conf"
 _CONFIG = configparser.ConfigParser()
@@ -166,6 +166,10 @@ def create_payload(message, output_type):
                     item_payload = value + units
                     payload_to_update = {(item_topic, item_payload)}
                     msg_payload.update(payload_to_update)
+        item_topic = mqtt_topic_prefix + 'last_update'  # timestamp
+        item_payload = datetime.now().isoformat()
+        payload_to_update = {(item_topic, item_payload)}
+        msg_payload.update(payload_to_update)
         return msg_payload
     elif output_type == 'JSON':
         output_json = {}
@@ -175,6 +179,7 @@ def create_payload(message, output_type):
                     output_json[key] = message[key][_VALUE]
                 else:
                     output_json[key] = message[key]
+        output_json['last_update'] = datetime.now().isoformat()  # timestamp
         return json.dumps(output_json)
 
 
