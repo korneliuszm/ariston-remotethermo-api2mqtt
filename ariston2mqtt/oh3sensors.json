@@ -1,0 +1,327 @@
+{
+    "account_ch_electricity": {
+        "description": "null",
+        "label": "Account CH Electricity",
+        "type": "mqtt:number"
+    },
+    "account_ch_gas": {
+        "description": "null",
+        "label": "Account CH Gas",
+        "type": "mqtt:number"
+    },
+    "account_dhw_electricity": {
+        "description": "null",
+        "label": "Account DHW Electricity",
+        "type": "mqtt:number"
+    },
+    "account_dhw_gas": {
+        "description": "null",
+        "label": "Account DHW Gas",
+        "type": "mqtt:number"
+    },
+    "ch_antifreeze_temperature": {
+        "description": "null",
+        "label": "CH Antifreeze Temperature",
+        "type": "mqtt:number"
+    },
+    "ch_auto_function": {
+        "description": "null",
+        "label": "CH Auto Function",
+        "type": "mqtt:string"
+    },
+    "ch_comfort_temperature": {
+        "description": "null",
+        "label": "CH Comfort Temperature",
+        "type": "mqtt:number"
+    },
+    "ch_detected_temperature": {
+        "description": "null",
+        "label": "CH Detected Temperature",
+        "type": "mqtt:number"
+    },
+    "ch_economy_temperature": {
+        "description": "null",
+        "label": "CH Economy Temperature",
+        "type": "mqtt:number"
+    },
+    "ch_flame": {
+        "description": "null",
+        "label": "CH Flame",
+        "type": "mqtt:string"
+    },
+    "ch_mode": {
+        "description": "null",
+        "label": "CH Mode",
+        "type": "mqtt:string"
+    },
+    "ch_pilot": {
+        "description": "null",
+        "label": "CH Pilot",
+        "type": "mqtt:string"
+    },
+    "ch_program": {
+        "description": "null",
+        "label": "CH Program",
+        "type": "mqtt:number"
+    },
+    "ch_set_temperature": {
+        "description": "null",
+        "label": "CH Set Temperature",
+        "type": "mqtt:number"
+    },
+    "ch_water_temperature": {
+        "description": "null",
+        "label": "CH Water Temperature",
+        "type": "mqtt:number"
+    },
+    "cooling_last_24h": {
+        "description": "null",
+        "label": "Cooling Last 24H",
+        "type": "mqtt:number"
+    },
+    "cooling_last_24h_list": {
+        "description": "null",
+        "label": "Cooling Last 24H List",
+        "type": "mqtt:number"
+    },
+    "cooling_last_30d": {
+        "description": "null",
+        "label": "Cooling Last 30D",
+        "type": "mqtt:number"
+    },
+    "cooling_last_30d_list": {
+        "description": "null",
+        "label": "Cooling Last 30D List",
+        "type": "mqtt:number"
+    },
+    "cooling_last_365d": {
+        "description": "null",
+        "label": "Cooling Last 365D",
+        "type": "mqtt:number"
+    },
+    "cooling_last_365d_list": {
+        "description": "null",
+        "label": "Cooling Last 365D List",
+        "type": "mqtt:number"
+    },
+    "cooling_last_7d": {
+        "description": "null",
+        "label": "Cooling Last 7D",
+        "type": "mqtt:number"
+    },
+    "cooling_last_7d_list": {
+        "description": "null",
+        "label": "Cooling Last 7D List",
+        "type": "mqtt:number"
+    },
+    "dhw_comfort_function": {
+        "description": "null",
+        "label": "DHW Comfort Function",
+        "type": "mqtt:string"
+    },
+    "dhw_comfort_temperature": {
+        "description": "null",
+        "label": "DHW Comfort Temperature",
+        "type": "mqtt:number"
+    },
+    "dhw_economy_temperature": {
+        "description": "null",
+        "label": "DHW Economy Temperature",
+        "type": "mqtt:number"
+    },
+    "dhw_flame": {
+        "description": "null",
+        "label": "DHW Flame",
+        "type": "mqtt:string"
+    },
+    "dhw_mode": {
+        "description": "null",
+        "label": "DHW Mode",
+        "type": "mqtt:string"
+    },
+    "dhw_program": {
+        "description": "null",
+        "label": "DHW Program",
+        "type": "mqtt:number"
+    },
+    "dhw_set_temperature": {
+        "description": "null",
+        "label": "DHW Set Temperature",
+        "type": "mqtt:number"
+    },
+    "dhw_storage_temperature": {
+        "description": "null",
+        "label": "DHW Storage Temperature",
+        "type": "mqtt:number"
+    },
+    "dhw_thermal_cleanse_cycle": {
+        "description": "null",
+        "label": "DHW Thermal Cleanse Cycle",
+        "type": "mqtt:number"
+    },
+    "dhw_thermal_cleanse_function": {
+        "description": "null",
+        "label": "DHW Thermal Cleanse Function",
+        "type": "mqtt:string"
+    },
+    "electricity_cost": {
+        "description": "null",
+        "label": "Electricity Cost",
+        "type": "mqtt:number"
+    },
+    "errors": {
+        "description": "null",
+        "label": "Errors",
+        "type": "mqtt:string"
+    },
+    "errors_count": {
+        "description": "null",
+        "label": "Errors Count",
+        "type": "mqtt:number"
+    },
+    "flame": {
+        "description": "null",
+        "label": "Flame",
+        "type": "mqtt:string"
+    },
+    "gas_cost": {
+        "description": "null",
+        "label": "Gas Cost",
+        "type": "mqtt:number"
+    },
+    "gas_type": {
+        "description": "null",
+        "label": "Gas Type",
+        "type": "mqtt:string"
+    },
+    "heat_pump": {
+        "description": "null",
+        "label": "Heat Pump",
+        "type": "mqtt:string"
+    },
+    "heating_last_24h": {
+        "description": "null",
+        "label": "Heating Last 24H",
+        "type": "mqtt:number"
+    },
+    "heating_last_24h_list": {
+        "description": "null",
+        "label": "Heating Last 24H List",
+        "type": "mqtt:number"
+    },
+    "heating_last_30d": {
+        "description": "null",
+        "label": "Heating Last 30D",
+        "type": "mqtt:number"
+    },
+    "heating_last_30d_list": {
+        "description": "null",
+        "label": "Heating Last 30D List",
+        "type": "mqtt:number"
+    },
+    "heating_last_365d": {
+        "description": "null",
+        "label": "Heating Last 365D",
+        "type": "mqtt:number"
+    },
+    "heating_last_365d_list": {
+        "description": "null",
+        "label": "Heating Last 365D List",
+        "type": "mqtt:number"
+    },
+    "heating_last_7d": {
+        "description": "null",
+        "label": "Heating Last 7D",
+        "type": "mqtt:number"
+    },
+    "heating_last_7d_list": {
+        "description": "null",
+        "label": "Heating Last 7D List",
+        "type": "mqtt:number"
+    },
+    "holiday_mode": {
+        "description": "null",
+        "label": "Holiday Mode",
+        "type": "mqtt:string"
+    },
+    "internet_time": {
+        "description": "null",
+        "label": "Internet Time",
+        "type": "mqtt:string"
+    },
+    "internet_weather": {
+        "description": "null",
+        "label": "Internet Weather",
+        "type": "mqtt:string"
+    },
+    "mode": {
+        "description": "null",
+        "label": "Mode",
+        "type": "mqtt:string"
+    },
+    "online_version": {
+        "description": "null",
+        "label": "Online Version",
+        "type": "mqtt:string"
+    },
+    "outside_temperature": {
+        "description": "null",
+        "label": "Outside Temperature",
+        "type": "mqtt:number"
+    },
+    "signal_strength": {
+        "description": "null",
+        "label": "Signal Strength",
+        "type": "mqtt:number"
+    },
+    "units": {
+        "description": "null",
+        "label": "Units",
+        "type": "mqtt:string"
+    },
+    "update": {
+        "description": "null",
+        "label": "Update",
+        "type": "mqtt:string"
+    },
+    "water_last_24h": {
+        "description": "null",
+        "label": "Water Last 24H",
+        "type": "mqtt:number"
+    },
+    "water_last_24h_list": {
+        "description": "null",
+        "label": "Water Last 24H List",
+        "type": "mqtt:number"
+    },
+    "water_last_30d": {
+        "description": "null",
+        "label": "Water Last 30D",
+        "type": "mqtt:number"
+    },
+    "water_last_30d_list": {
+        "description": "null",
+        "label": "Water Last 30D List",
+        "type": "mqtt:number"
+    },
+    "water_last_365d": {
+        "description": "null",
+        "label": "Water Last 365D",
+        "type": "mqtt:number"
+    },
+    "water_last_365d_list": {
+        "description": "null",
+        "label": "Water Last 365D List",
+        "type": "mqtt:number"
+    },
+    "water_last_7d": {
+        "description": "null",
+        "label": "Water Last 7D",
+        "type": "mqtt:number"
+    },
+    "water_last_7d_list": {
+        "description": "null",
+        "label": "Water Last 7D List",
+        "type": "mqtt:number"
+    }
+}

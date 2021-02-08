@@ -12,12 +12,22 @@ The following packages are required for correct operation:
 - https://github.com/eclipse/paho.mqtt.python
 - current package
 
+To run program in the background use:
+```nohup python3 ./ariston2mqtt.py </dev/null &>/dev/null &```
+
+To switch it off use:
+```ps ax | grep ariston2mqtt```
+and next
+```kill -9 [process number]```
+
+
 ## ariston2mqtt.conf
 File ariston2mqtt.conf contains cofiguration splitted into following sections:
 - ```[CONNECTION]``` with MQTT connectivity details
 - ```[PAYLOAD]``` with payload format setup
   - ```topics``` - separate MQTT topic per sensor
   - ```JSON``` - one JSON topic with all sensor statuses
+- ```[OPENHAB3]``` with options to generate yaml file with MQTT channels for openHab3
 - ```[ARISTON]``` with connectivity details to https://www.ariston-net.remotethermo.com
 - ```[SENSORS]``` with list of sensors supportet by API (please keep in mind that using sensors which are not supported by your Ariston equipment can case issues - please read https://github.com/chomupashchuk/ariston-remotethermo-api)
 
@@ -28,3 +38,11 @@ Current version has been tested on the following environment:
 - Python 3.7.3
 - eclipse-mosquitto 1.6.12 (docker version)
 - Ariston GENUS ONE SYSTEM 24
+
+## working with openHab 3
+There is no option to add thing, channels and items to openHab3 via API yet, but small program ```oh3henerate.py``` should be also helpful. This program generates a yaml file with channels (for all sensors arked as True in ```ariston2mqtt.conf file```). To quickly add add them to openHab3 please do following steps:
+- install MQTT broker
+- add and configure MQTT Bridge
+- add Generic MQTT Thing with Unique ID and assigned bridge only
+- after save go to the page Code in newly created MQTT Thing, delete all lines **EXCEPT the first with UID** and next paste content of ```ariston2mqtt.yaml``` file (you can also use file from this repository).  
+- after saving you will be able to create links to all those channels.
