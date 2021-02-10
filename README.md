@@ -12,13 +12,18 @@ The following packages are required for correct operation:
 - https://github.com/eclipse/paho.mqtt.python
 - current package
 
-To run program in the background use:
-```nohup python3 ./ariston2mqtt.py </dev/null &>/dev/null &```
+Download this repository and run:  
+```pip install -r requirements.txt```
 
-To switch it off use:
-```ps ax | grep ariston2mqtt```
-and next
-```kill -9 [process number]```
+Check and add proper info to ```ariston2mqtt.conf```  
+
+To run program in the background use:  
+```nohup python3 ./ariston2mqtt.py </dev/null &>/dev/null &```  
+
+To switch it off use:  
+```ps ax | grep ariston2mqtt```  
+and next  
+```kill -9 [process number]```  
 
 
 ## ariston2mqtt.conf
