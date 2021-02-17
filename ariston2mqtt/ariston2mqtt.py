@@ -1,14 +1,12 @@
-# import os
 import re
 import sys
-import time
 import logging
 import configparser
 import json
 import paho.mqtt.client as paho
-# import paho.mqtt.publish as publish
-from aristonremotethermo.ariston import AristonHandler
 from datetime import datetime
+from packaging import version
+from aristonremotethermo.ariston import AristonHandler
 
 _CONFIG_FILE = "ariston2mqtt.conf"
 _CONFIG = configparser.ConfigParser()
@@ -16,6 +14,7 @@ _CONFIG_CONNECTION = "CONNECTION"
 _CONFIG_PAYLOAD = "PAYLOAD"
 _CONFIG_ARISTON = "ARISTON"
 _CONFIG_SENSORS = "SENSORS"
+_API_VERSION_REQUIRED = "1.0.30"
 
 _LOGGER = logging.getLogger(__name__)
 _LEVEL_CRITICAL = "CRITICAL"
@@ -121,21 +120,65 @@ _UNITS = "units"
 _REGEX = r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w+$'
 
 
+def sensors_updated(upd_sensors, *args, **kwargs):
+    """ Triggered by aristonremotethermo.ariston
+        List of uppdated sensors is sent as paratmeter
+        to create_payload and returned value is sent to
+        MQTT broker
+
+        Paramters:
+        ----------
+        upd_sensors : dict
+            The list of updated sensors
+    """
+    try:
+        message_payload = create_payload(
+            upd_sensors, payload_output_type)
+
+        if type(message_payload) is dict:
+            for key, value in message_payload.items():
+                mqttc.publish(key, value, int(mqtt_qos), mqtt_retain)
+        else:
+            key = mqtt_topic_prefix + "json"
+            mqttc.publish(key, message_payload, int(mqtt_qos), mqtt_retain)
+
+    except Exception as e:
+        _LOGGER.error(e.__str__())
+
+    _LOGGER.debug(f"Updated: {upd_sensors}")
+
+
+def status_updated(upd_statuses, *args, **kwargs):
+    """ Triggered by aristonremotethermo.ariston
+
+        Paramters:
+        ----------
+        upd_statuses : dict
+            The list of updated statuses
+    """
+    _LOGGER.debug(f"Updated: {upd_statuses}, %s")
+
+
 def check_user_name(email):
+    """ Checking if email is provided in proper format """
     return re.search(_REGEX, email)
 
 
 def read_sensors(sensors) -> set:
+    """ Checking sensors provided in config file
+
+        Sensors not supported are skipped
+    """
     valid_sensors = set()
     rs_sensors = sensors
     for key, value in rs_sensors.items():
         if key not in supported_sensors:
             _LOGGER.warning(
-                "Sensor %s is not supported and will be skipped", key)
+                f"Sensor {key} is not supported and will be skipped")
             continue
         if value not in _SENSOR_SETTINGS_ALLOWED:
             _LOGGER.warning(
-                "Wrong entry for sensor %s - only True/False allowed", key)
+                f"Wrong entry for sensor {key} - only True/False allowed")
             continue
         if value == _SENSOR_INCLUDED:
             valid_sensors.add(key)
@@ -143,9 +186,30 @@ def read_sensors(sensors) -> set:
 
 
 def create_payload(message, output_type):
+    """ Creating MQTT payload
+
+        Parameters
+        ----------
+        message : dict
+            Dictionary with:
+                key = sensor name
+                value = sensor value
+
+        output_type : str
+            "topic" - 1 MQTT topic per sensor
+            "JSON" - 1 MQTT topic as JSON with all sensors
+
+        Below sensors are skipped:
+        - marked as False in config file
+        - with None value
+    """
+
     msg_payload = {}
+    _LOGGER.debug(f"Message: {message}")
     if output_type == 'topic':
         for key in sensors:
+            if key not in message:
+                continue
             payload_to_update = {}
             if message[key][_VALUE] is not None:
                 if type(message[key][_VALUE]) is dict:
@@ -155,6 +219,8 @@ def create_payload(message, output_type):
                         item_payload = value2
                         payload_to_update = {(item_topic, item_payload)}
                         msg_payload.update(payload_to_update)
+                        _LOGGER.debug(f"Payload to update: \
+                            {payload_to_update}")
                 else:
                     key = str(key).strip()
                     value = str(message[key][_VALUE]).strip()
@@ -166,6 +232,8 @@ def create_payload(message, output_type):
                     item_payload = value + units
                     payload_to_update = {(item_topic, item_payload)}
                     msg_payload.update(payload_to_update)
+                    _LOGGER.debug(f"Payload to update: \
+                        {payload_to_update}")
         item_topic = mqtt_topic_prefix + 'last_update'  # timestamp
         item_payload = datetime.now().isoformat()
         payload_to_update = {(item_topic, item_payload)}
@@ -174,6 +242,8 @@ def create_payload(message, output_type):
     elif output_type == 'JSON':
         output_json = {}
         for key in sensors:
+            if key not in message:
+                continue
             if message[key][_VALUE] is not None:
                 if message[key][_UNITS] is None or not payload_send_units:
                     output_json[key] = message[key][_VALUE]
@@ -207,8 +277,7 @@ try:
     with open(_CONFIG_FILE) as f:
         _CONFIG.read_file(f)
 except Exception as e:
-    print("Cannot load configuration from file %s: %s" %
-          (_CONFIG_FILE, str(e)))
+    print(f"Cannot load configuration from file {_CONFIG_FILE}: {str(e)}")
     sys.exit(2)
 
 connection = _CONFIG[_CONFIG_CONNECTION]
@@ -259,12 +328,11 @@ _formatter = logging.Formatter(
     '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 _console_handler.setFormatter(_formatter)
 _LOGGER.addHandler(_console_handler)
-_LOGGER.info("Config successfully read from %s", _CONFIG_FILE)
+_LOGGER.info(f"Config successfully read from {_CONFIG_FILE}")
 
 
 supported_sensors = _SUPPORTED_SENSORS
 sensors = read_sensors(sensors)
-
 
 # Initiate Ariston API #
 ApiInstance = AristonHandler(
@@ -277,7 +345,18 @@ ApiInstance = AristonHandler(
 )
 
 
+if version.parse(ApiInstance.version) < version.parse(_API_VERSION_REQUIRED):
+    _LOGGER.error(f"API Version: {ApiInstance.version} - minimmum \
+    {_API_VERSION_REQUIRED} is required")
+    sys.exit(2)
+else:
+    _LOGGER.debug(f"API Version: {ApiInstance.version} - Required \
+    version: {_API_VERSION_REQUIRED}")
+
 ApiInstance.start()
+
+ApiInstance.subscribe_sensors(sensors_updated)
+ApiInstance.subscribe_statuses(status_updated)
 
 # Initialise MQTT #
 mqtt_request_topic = mqtt_topic_prefix + mqtt_request_topic + '/'
@@ -292,19 +371,3 @@ mqttc.will_set('clients/ariston', payload="CU soon!", qos=0, retain=False)
 mqttc.connect(mqtt_broker, int(mqtt_port), 60)
 
 mqttc.loop_start()
-
-while True:
-    try:
-        message_payload = create_payload(
-            ApiInstance.sensor_values, payload_output_type)
-        if type(message_payload) is dict:
-            for key, value in message_payload.items():
-                mqttc.publish(key, value, int(mqtt_qos), mqtt_retain)
-        else:
-            key = mqtt_topic_prefix + "json"
-            mqttc.publish(key, message_payload, int(mqtt_qos), mqtt_retain)
-
-    except Exception as e:
-        _LOGGER.error(e.__str__())
-
-    time.sleep(15)
